@@ -11,7 +11,7 @@ from scipy import ndimage
 from torch.utils.data import Dataset,DataLoader
 
 def label2image(prelabel,colormap):
-    #预测的标签转化为图像，针对一个标签图
+    
     h,w = prelabel.shape
     prelabel = prelabel.reshape(h*w,-1)
     image = np.zeros((h*w,3),dtype="int32")
@@ -28,10 +28,10 @@ class MyData(Dataset):
         self.image_path = os.listdir(self.root_dir)
         self.label_path = os.listdir(self.label_dir)
         self.transformers = transformers
-    def __getitem__(self, idx):  #如果想通过item去获取图片，就要先创建图片地址的一个列表
+    def __getitem__(self, idx):  
         img_name = self.image_path[idx]
         label_name = self.label_path[idx]
-        img_item_path = os.path.join(self.root_dir, img_name)  # 每个图片的位置
+        img_item_path = os.path.join(self.root_dir, img_name) 
         label_item_path = os.path.join(self.label_dir, label_name)
         image = io.imread(img_item_path)
         if self.transformers is not None:
